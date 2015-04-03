@@ -1,9 +1,9 @@
 class CreateDailyTotals < ActiveRecord::Migration
   def change
     create_table :daily_totals do |t|
-      t.count :int, null: false
-      t.time :datetime, null: false
-      t.company_id :int, null: false
+      t.integer :count, null: false
+      t.datetime :time, null: false
+      t.integer :company_id, null: false
     end
   end
 end
