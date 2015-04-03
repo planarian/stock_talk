@@ -1,5 +1,15 @@
 source 'https://rubygems.org'
 
+#per Heroku
+ruby '2.0.0'
+
+#per Heroku
+gem 'rails_12factor', group: :production
+
+#per Heroku
+gem 'puma'
+
+gem 'twitter'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
