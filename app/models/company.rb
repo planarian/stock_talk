@@ -6,8 +6,10 @@ class Company < ActiveRecord::Base
 
 
   def consolidate
-    total = queries.all.inject(0) {|fst, snd| fst + snd[:count]}
+    begin_today = Time.now.midnight
+    end_today = Time.now.midnight + 1.day
+    total = queries.where(time: begin_today..end_today).inject(0) {|fst, snd| fst + snd[:count]}
     daily_totals.create(count: total, time: Time.now)
-    queries.destoy_all
+    queries.where(time: begin_today..end_today).destroy_all
   end
 end
