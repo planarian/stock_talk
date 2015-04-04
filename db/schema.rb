@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150403181555) do
   end
 
   create_table "queries", force: :cascade do |t|
-    t.integer  "last_tweet", null: false
+    t.decimal  "last_tweet", null: false
     t.integer  "count",      null: false
     t.datetime "time",       null: false
     t.integer  "company_id", null: false
