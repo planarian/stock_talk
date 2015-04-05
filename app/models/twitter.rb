@@ -15,9 +15,8 @@ module RetrieveTweets
   end
 
   def self.store(company, results)
-    puts "\nbegin: #{results.attrs[:statuses].last[:id]}"
-    puts "end: #{results.attrs[:statuses].first[:id]}"
     qty = results.attrs[:statuses].count
+    puts "\nbegin: #{results.attrs[:statuses].last[:id]}\nend: #{results.attrs[:statuses].first[:id]}\n" unless qty.zero?
     company.queries.create(time: Time.now,
                            count: qty,
                            earliest_tweet: results.attrs[:statuses].last[:id],
