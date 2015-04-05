@@ -1,3 +1,5 @@
+require 'csv'
+
 module RetrieveTweets
   
   def self.get(company)
@@ -8,7 +10,7 @@ module RetrieveTweets
 
   def self.ask(company)
       unless company.queries.count.zero?
-        return Client.search(company.name, since_id: company.queries.last.most_recent_tweet.to_i)
+        return Client.search(company.name, since_id: 584739789141839872)
       else 
         return Client.search(company.name)
       end
@@ -23,4 +25,16 @@ module RetrieveTweets
                            most_recent_tweet: results.attrs[:statuses].first[:id]) unless qty.zero?
     qty
   end
+end
+
+module ToCSV
+  def self.convert(model, filename)
+    CSV.open("#{filename}", "wb") do |csv|
+      csv << model.attribute_names
+      model.all.each do |item| 
+        csv << item.attributes.values.map{ |x| x.instance_of?(BigDecimal) ? x.to_i.to_s : x }
+      end
+    end
+  end
+
 end
