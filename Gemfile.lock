@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/deivid-rodriguez/byebug.git
+  revision: e41e3c34f2cbcac8fd767f08237af835abf28822
+  branch: master
+  specs:
+    byebug (4.0.5)
+      columnize (= 0.9.0)
+
+GIT
   remote: git@github.com:DatabaseCleaner/database_cleaner.git
   revision: bb608dd3ac6b149cbe92a658d3f8abbebfe82f3f
   specs:
@@ -48,8 +56,6 @@ GEM
       debug_inspector (>= 0.0.1)
     buftok (0.2.0)
     builder (3.2.2)
-    byebug (4.0.4)
-      columnize (= 0.9.0)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -230,7 +236,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
+  byebug!
   capybara
   coffee-rails (~> 4.1.0)
   database_cleaner!
