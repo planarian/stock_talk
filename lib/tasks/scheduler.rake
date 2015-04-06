@@ -2,16 +2,8 @@ require "#{Rails.root}/app/models/twitter"
 
 desc "This task is called by the Heroku scheduler add-on"
 task :query_twitter => :environment do
-  loop do
-    qty = 0
-    Company.all.each do |company|
-      print "Downloading tweets for #{company.name}..."
-      qty = RetrieveTweets.get(company)
-      print "done. #{qty} tweet(s) retrieved.\n"
-    end
-    break if qty < 100
+    RetrieveTweets.get(company)
   end
-end
 
 desc "This task is called by the Heroku scheduler add-on"
 task :consolidate => :environment do
