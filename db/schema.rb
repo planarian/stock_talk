@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405161810) do
+ActiveRecord::Schema.define(version: 20150407024418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,8 +24,14 @@ ActiveRecord::Schema.define(version: 20150405161810) do
 
   create_table "daily_totals", force: :cascade do |t|
     t.integer  "count",      null: false
-    t.datetime "time",       null: false
     t.integer  "company_id", null: false
+    t.integer  "day_id",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "days", force: :cascade do |t|
+    t.date "date", null: false
   end
 
   create_table "queries", force: :cascade do |t|
