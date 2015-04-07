@@ -6,7 +6,7 @@ module ToCSV
     CSV.open(filename, "wb") do |csv|
       csv << model.attribute_names
       model.all.each do |item| 
-        csv << item.attributes.values.map{ |x| x.instance_of?(BigDecimal) ? x.to_i.to_s : x } 
+        csv << item.to_a
       end
     end
   end
