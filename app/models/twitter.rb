@@ -2,31 +2,25 @@ require "#{Rails.root}/lib/to_csv"
 
 module RetrieveTweets
   
-  def self.get(company, *start_id)
+  def self.get(company)
     print "Downloading tweets for #{name}..."
-    qty = store(company, ask(company, start_id))
+    qty = store(company, ask(company))
     print "done. #{qty} tweet(s) retrieved.\n"
     ToCSV.convert(Tweet, "tweet.csv")
   end
 
-  def self.ask(company, *start_id)
+  def self.ask(company)
     unless company.queries.empty?
-      begin_id = start_id.flatten.empty? ? company.queries.last.most_recent_tweet : start_id.flatten[0]
-      results = Client.search(company.name, {count: 100, since_id: begin_id}).attrs[:statuses]
+      min_id = company.queries.last.most_recent_tweet
+      results = Client.search(company.name, {count: 100, since_id: min_id}).attrs[:statuses]
     else
-      if start_id.flatten.empty?
-        results = Client.search(company.name, count: 100).attrs[:statuses]
-      else 
-        begin_id = start_id.flatten[0]
-        results = Client.search(company.name, {count: 100, since_id: begin_id}).attrs[:statuses]
-      end
+      results = Client.search(company.name, count: 100).attrs[:statuses]
     end
     
-    if begin_id && results.count == 100
+    if min_id && results.count == 100
       loop do 
         interm_results = Client.search(company.name, 
-          {count: 100, max_id: results.last[:id] - 1, since_id: begin_id}).attrs[:statuses]
-        puts "boundary: #{results.last[:id]}"
+          {count: 100, max_id: results.last[:id] - 1, since_id: min_id}).attrs[:statuses]
         results += interm_results
         puts "#{interm_results.count} added. #{results.count} total."
         break if interm_results.count < 100
