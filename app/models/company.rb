@@ -14,8 +14,10 @@ class Company < ActiveRecord::Base
       if already_stored
         already_stored.update(count: already_stored.count + new_total)
       else
-        daily_totals.create(day_id: curr_day.id, count: new_total)
+        daily_totals.create!(day_id: curr_day.id, count: new_total)
+        #Why doesn't 'day_id: curr_day' work here?
       end
     end
+    queries.destroy_all
   end
 end
