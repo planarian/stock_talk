@@ -35,6 +35,7 @@ module RetrieveTweets
         break if interm_results.count < MAX_COUNT
       end
     end
+    company.update(most_recent_tweet: results.first[:id]) if results && !results.count.zero?
     results
   end
 
