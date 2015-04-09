@@ -8,7 +8,7 @@ class Day < ActiveRecord::Base
     unless last.nil?
       last_day = last.date
     else
-      last_day = create!(date: Date.today - 1)
+      last_day = create!(date: Date.today - 1).date
       offset = 1
     end
       (1..(num_days - offset)).each { |i| create!(date: last_day + i) }
