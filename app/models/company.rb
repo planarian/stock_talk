@@ -5,6 +5,11 @@ class Company < ActiveRecord::Base
 
   validates :name, :symbol, presence: true
 
+  def search_str
+    str = name
+    str.insert(0, "\"").insert(-1, "\"") if str =~ / /
+    str
+  end
   
   def self.list_yahoo_format
     out = ""
