@@ -1,14 +1,11 @@
 desc "This task is called by the Heroku scheduler add-on"
 task :query_twitter => :environment do
-    Company.all.each { |co| RetrieveTweets.get(co) }
+    RetrieveTweets.get_all
   end
 
 
 desc "This task is called by the Heroku scheduler add-on"
-task :consolidate => :environment do
-  Company.all.each do |company|
-    print "Consolidating totals for #{company.name}..."
-    company.consolidate
-    print "done"
-  end 
+task :daily => :environment do
+  Day.add(1)
+  RetrieveQuotes.get(Date.today - 1)
 end
