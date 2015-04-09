@@ -1,5 +1,3 @@
-require "#{Rails.root}/app/models/twitter"
-
 desc "This task is called by the Heroku scheduler add-on"
 task :query_twitter => :environment do
     Company.all.each { |co| RetrieveTweets.get(co) }
