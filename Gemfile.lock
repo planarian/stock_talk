@@ -76,6 +76,8 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     erubis (2.7.0)
+    ethon (0.7.3)
+      ffi (>= 1.3.0)
     execjs (2.4.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -218,6 +220,8 @@ GEM
       memoizable (~> 0.4.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
+    typhoeus (0.7.1)
+      ethon (>= 0.7.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -257,5 +261,6 @@ DEPENDENCIES
   shoulda-matchers
   spring
   twitter
+  typhoeus
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
