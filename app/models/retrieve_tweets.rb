@@ -53,7 +53,7 @@ module RetrieveTweets
     end
     if qty.nil?
       running_total.update(error: true)
-      company.most_recent_tweet = nil
+      company.update(most_recent_tweet: nil)
     end
     qty
   end
