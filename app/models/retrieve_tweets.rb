@@ -23,15 +23,15 @@ module RetrieveTweets
   def self.ask(company)
     unless company.most_recent_tweet.nil?
       min_id = company.most_recent_tweet
-      results = error_handler { Client.search(company.name, {count: MAX_COUNT, since_id: min_id}).attrs[:statuses] }
+      results = error_handler { Client.search(company.search_str, {count: MAX_COUNT, since_id: min_id}).attrs[:statuses] }
     else
-      results = error_handler { Client.search(company.name, count: MAX_COUNT).attrs[:statuses] }
+      results = error_handler { Client.search(company.search_str, count: MAX_COUNT).attrs[:statuses] }
     end
     
     if min_id && results && results.count == MAX_COUNT
       loop do 
         interm_results = error_handler do 
-          Client.search(company.name, {count: MAX_COUNT, max_id: results.last[:id] - 1, 
+          Client.search(company.search_str, {count: MAX_COUNT, max_id: results.last[:id] - 1, 
             since_id: min_id}).attrs[:statuses]
         end
         results += interm_results
