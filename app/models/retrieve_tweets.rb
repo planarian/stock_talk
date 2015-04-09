@@ -1,6 +1,10 @@
 module RetrieveTweets
   MAX_COUNT = 100
   
+  def self.get_all
+    Company.all.each { |co| get(co) }
+  end
+
   def self.get(company)
     print "Downloading tweets for #{company.name}..."
     qty = store(company, ask(company))
@@ -11,7 +15,7 @@ module RetrieveTweets
     begin
       results = yield
     rescue Twitter::Error => e
-        print "TWITTER SEARCH FAILED: #{e.message}"
+        print "TWITTER REQUEST FAILED: #{e.message}"
     end
     results
   end
