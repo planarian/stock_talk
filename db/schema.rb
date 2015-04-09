@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20150408144144) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",              null: false
+    t.string   "symbol",            null: false
     t.decimal  "most_recent_tweet"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
