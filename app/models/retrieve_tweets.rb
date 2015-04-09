@@ -2,7 +2,7 @@ module RetrieveTweets
   MAX_COUNT = 100
   
   def self.get(company)
-    print "Downloading tweets for #{name}..."
+    print "Downloading tweets for #{company.name}..."
     qty = store(company, ask(company))
     print "done. #{qty} tweet(s) retrieved.\n" if qty
   end
@@ -42,7 +42,7 @@ module RetrieveTweets
   def self.store(company, results)
     qty = results.count if results
     increment = qty ? qty : 0
-    today = Day.find_by(date: Time.now.to_date)
+    today = Day.find_by(date: Date.today)
     running_total = DailyTotal.find_by(day_id: today, company_id: company)
     
     if running_total
