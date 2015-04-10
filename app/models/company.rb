@@ -13,7 +13,7 @@ class Company < ActiveRecord::Base
   
   def self.list_yahoo_format
     out = ""
-    all.each { |company| out << "\"#{company.symbol}\"," }
+    all.order(:id => :asc).each { |company| out << "\"#{company.symbol}\"," }
     out.chop
   end
 

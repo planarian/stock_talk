@@ -30,7 +30,7 @@ module RetrieveQuotes
 
   def self.store(day_of)
     results = ask(day_of)
-    Company.all.each_with_index do |company, i|
+    Company.all.order(:id => :asc).each_with_index do |company, i|
       init = {company_id: company.id, day_id: day_of.id}
       # Why not 'company_id: company, day_id: day_of'?
       if results.instance_of?(Array)
