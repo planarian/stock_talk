@@ -12,17 +12,17 @@
 					<th>Error?</th>
 					<th>Updated</th>
 				</tr>		
-				<% Company.all.each do |company| %>
+				<% @companies.each do |company| %>
 					<% tweets = company.daily_totals.find_by(day: day) %>
 					<% shares = company.share_prices.find_by(day: day) %>
 					<tr>
 						<td><%= company.name %></td>
-						<td><%= tweets ? tweets.count : nil %></td>
-						<td><%= tweets ? tweets.error : nil %></td>
-						<td><%= tweets ? tweets.updated_at : nil %></td>
-						<td><%= shares ? shares.price : nil %></td>
-						<td><%= shares ? shares.error : nil %></td>
-						<td><%= shares ? shares.updated_at : nil %></td>
+						<td><%= tweets.count if tweets %></td>
+						<td><%= tweets.error if tweets %></td>
+						<td><%= tweets.updated_at if tweets %></td>
+						<td><%= shares.price if shares %></td>
+						<td><%= shares.error if shares %></td>
+						<td><%= shares.updated_at if shares %></td>
 					</tr>
 					<tr></tr>
 				<% end %>
