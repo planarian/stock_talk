@@ -7,5 +7,5 @@ task :query_twitter => :environment do
 desc "This task is called by the Heroku scheduler add-on"
 task :daily => :environment do
   Day.add(1)
-  RetrieveQuotes.get(Date.today - 1)
+  RetrieveQuotes.get_yesterday
 end
