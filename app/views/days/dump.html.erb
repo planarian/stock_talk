@@ -1,0 +1,32 @@
+<div>
+	<div class="dump_day">
+		<% @days.each do |day| %>
+			<p><%= day.date.strftime("%a, %d %b %Y") %></p><br>
+			<table>
+				<tr>
+					<th>Company</th>
+					<th>Tweets</th>
+					<th>Error?</th>
+					<th>Updated</th>
+					<th>Shares</th>
+					<th>Error?</th>
+					<th>Updated</th>
+				</tr>		
+				<% Company.all.each do |company| %>
+					<% tweets = company.daily_totals.find_by(day: day) %>
+					<% shares = company.share_prices.find_by(day: day) %>
+					<tr>
+						<td><%= company.name %></td>
+						<td><%= tweets ? tweets.count : nil %></td>
+						<td><%= tweets ? tweets.error : nil %></td>
+						<td><%= tweets ? tweets.updated_at : nil %></td>
+						<td><%= shares ? shares.price : nil %></td>
+						<td><%= shares ? shares.error : nil %></td>
+						<td><%= shares ? shares.updated_at : nil %></td>
+					</tr>
+					<tr></tr>
+				<% end %>
+			</table>
+		<% end %>
+	</div>
+</div>
