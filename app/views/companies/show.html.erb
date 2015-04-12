@@ -1,0 +1,5 @@
+<%= @current %>
+<%= @record %>
+<%= select_tag(:company_selector, options_from_collection_for_select(Company.all.order(:name => :asc), :id, :name)) %>
+
+

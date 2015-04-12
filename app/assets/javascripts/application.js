@@ -13,3 +13,22 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(document).ready(function() {
+      
+      setMenu();
+      setCompany();
+
+});
+
+function setMenu() {
+  companyId = window.location.href.split('/').slice(-1);
+  $('#company_selector').val(companyId);
+}
+
+function setCompany() {
+  $('#company_selector').change(function() {
+    newUrl = $('#company_selector').val();
+    window.location.replace(newUrl);
+});
+}
