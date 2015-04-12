@@ -58,6 +58,4 @@ module RetrieveQuotes
     URI.escape(url)
   end
 
-  # private_class_method :ask, :store, :prepare_url
-
 end
