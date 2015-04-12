@@ -20,7 +20,7 @@
 						<td><%= tweets.count if tweets %></td>
 						<td><%= tweets.error if tweets %></td>
 						<td><%= tweets.updated_at if tweets %></td>
-						<td><%= shares.price if shares %></td>
+						<td><%= shares.price.to_f.round(2) if shares %></td>
 						<td><%= shares.error if shares %></td>
 						<td><%= shares.updated_at if shares %></td>
 					</tr>
