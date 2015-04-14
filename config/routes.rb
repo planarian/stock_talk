@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :companies, only: [:index, :show]
 
-  root 'companies#index'
+  get '/', to: redirect('/companies/1')
 
   get 'days/dump' => 'days#dump'
 
