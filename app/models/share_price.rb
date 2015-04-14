@@ -6,6 +6,7 @@ class SharePrice < ActiveRecord::Base
   validates :day_id, :company_id, presence: true
 
   def price
-    read_attribute(:price).to_f.round(2)
+    p = read_attribute(:price)
+    p ? p.to_f.round(2) : nil
   end
 end
