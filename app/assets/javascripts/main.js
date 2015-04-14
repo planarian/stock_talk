@@ -3,12 +3,14 @@
 "use strict";
 
 $(document).ready(function () {
-  setMenu();
-  setCompany();
-  getData();
-  window.ctx = $("#tweetChart").get(0).getContext("2d");
-  window.ctx2 = $("#quoteChart").get(0).getContext("2d");
-    
+
+  if ($("#tweetChart").length) {
+    setMenu();
+    setCompany();
+    getData();
+    window.ctx = $("#tweetChart").get(0).getContext("2d");
+    window.ctx2 = $("#quoteChart").get(0).getContext("2d");
+  }
 
 });
 
