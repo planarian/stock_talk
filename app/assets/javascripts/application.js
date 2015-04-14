@@ -16,5 +16,4 @@
 
 //= require Chart.min
 //= require chart_settings
-//= require chart_data
 //= require main
