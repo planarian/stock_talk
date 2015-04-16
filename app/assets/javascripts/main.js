@@ -8,19 +8,33 @@ $(document).ready(function () {
     setMenu();
     setCompany();
     
-    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlight}}, 
-                     {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlight}});
+    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlight, 
+                                                                    zoomCallback: tweetZoom}}, 
+                     {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlight,
+                                                                    zoomCallback: priceZoom}});
   }
 
 });
 
-function tweetHighlight (event, x, points, row, seriesName) {
+//begin callbacks
+
+function tweetHighlight(event, x, points, row, seriesName) {
   window.prices.setSelection(row);
 }
 
-function priceHighlight (event, x, points, row, seriesName) {
+function priceHighlight(event, x, points, row, seriesName) {
   window.tweets.setSelection(row);
 }
+
+function tweetZoom(minDate, maxDate, yRanges) {
+  window.prices.updateOptions({dateWindow: [minDate, maxDate]});
+}
+
+function priceZoom(minDate, maxDate, yRanges) {
+  window.tweets.updateOptions({dateWindow: [minDate, maxDate]});
+}
+
+//end callbacks
 
 
 
