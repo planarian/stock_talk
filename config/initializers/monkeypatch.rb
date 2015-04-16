@@ -1,0 +1,1 @@
+Date.send(:include, CoreExtensions::Date::Yahoo)

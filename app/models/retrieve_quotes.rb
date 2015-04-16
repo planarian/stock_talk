@@ -1,5 +1,4 @@
 module RetrieveQuotes
-  Date.send(:include, CoreExtensions::Date::Yahoo)
 
   def self.get_yesterday
     get(Date.today - 1)
