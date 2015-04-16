@@ -14,6 +14,5 @@
 //= require jquery
 //= require jquery_ujs
 
-//= require Chart.min
-//= require chart_settings
+//= require dygraph-combined
 //= require main
