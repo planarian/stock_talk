@@ -9,6 +9,6 @@ class DailyTotal < ActiveRecord::Base
   end
 
   def csv_row
-    "#{day.date.yahoo_format}, #{count}\n"
+    "#{day.date.yahoo_format}, #{error ? nil : count}\n"
   end
 end

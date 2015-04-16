@@ -15,6 +15,6 @@ class SharePrice < ActiveRecord::Base
   end
 
   def csv_row
-    "#{day.date.yahoo_format}, #{price}\n"
+    "#{day.date.yahoo_format}, #{error ? nil : price}\n"
   end
 end
