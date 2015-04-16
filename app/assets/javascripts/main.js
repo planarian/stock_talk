@@ -8,11 +8,20 @@ $(document).ready(function () {
     setMenu();
     setCompany();
     
-    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0]}, 
-                     {key: 'prices', tag: $('#priceChart')[0]});
+    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlight}}, 
+                     {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlight}});
   }
 
 });
+
+function tweetHighlight (event, x, points, row, seriesName) {
+  window.prices.setSelection(row);
+}
+
+function priceHighlight (event, x, points, row, seriesName) {
+  window.tweets.setSelection(row);
+}
+
 
 
 function setMenu() {
@@ -35,12 +44,12 @@ function getAndGraphData() { //accepts series of {key: <str>, tag: <elem>} objec
     url: window.location.href}).done(function (response) {
 
     for (var i = 0; i < argLen; i++)
-      graphData(args[i].key, args[i].tag, response[args[i].key]);
+      graphData(args[i].key, args[i].tag, response[args[i].key], args[i].opt);
   });
 }
 
-function graphData(key, tag, csv) {
-  window[key] = new Dygraph(tag, csv);
+function graphData(key, tag, csv, opt) {
+  window[key] = new Dygraph(tag, csv, opt);
 }
 
 
