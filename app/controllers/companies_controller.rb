@@ -13,13 +13,11 @@ class CompaniesController < ApplicationController
   end
 
   def get_record
-    record = []
+    record = {tweets: DailyTotal.csv_header, prices: SharePrice.csv_header}
     days = Day.includes(:daily_totals, :share_prices)
     days.each do |this_day|
-      record << { day: this_day.date.strftime('%b %-d'),
-                  tweets: this_day.daily_totals.find_by(company: params[:id]).try(:count),
-                  share_price: this_day.share_prices.find_by(company: params[:id]).try(:price)
-                 }
+      record[:tweets] += this_day.daily_totals.find_by(company: params[:id]).try(:csv_row).to_s
+      record[:prices] += this_day.share_prices.find_by(company: params[:id]).try(:csv_row).to_s
     end
     record
   end
