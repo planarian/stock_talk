@@ -2,66 +2,70 @@
 
 "use strict";
 
+
 $(document).ready(function () {
 
   if ($("#tweetChart").length) {
     setMenu();
     setCompany();
-    
+
     getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlight, 
-                                                                    drawCallback: tweetDraw}}, 
+                                                                    drawCallback: tweetDraw}},
                     {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlight,
                                                                     drawCallback: priceDraw}});
-    window.clicked = null;
+
+    window.globalVars = {};
+    globalVars.clicked = null;
+
     tweetClickListener();
     priceClickListener();
   }
 
-  
+
 
 });
 
 //begin callbacks
 
 function tweetClickListener() {
-  $("#tweetChart").mousedown(function(){
-    window.clicked = "tweets";
+  $("#tweetChart").mousedown(function () {
+    globalVars.clicked = "tweets";
   });
 }
 
 function priceClickListener() {
-  $("#priceChart").mousedown(function(){
-    window.clicked = "prices";
+  $("#priceChart").mousedown(function () {
+    globalVars.clicked = "prices";
   });
 }
 
 
 function tweetHighlight(event, x, points, row, seriesName) {
-  window.prices.setSelection(row);
+  globalVars.prices.setSelection(row);
 }
 
 function priceHighlight(event, x, points, row, seriesName) {
-  window.tweets.setSelection(row);
+  globalVars.tweets.setSelection(row);
 }
 
 function tweetDraw(dygraph, is_initial) {
-  if (!is_initial) 
-    if (window.clicked === "tweets") {
+  if (!is_initial)
+    if (globalVars.clicked === "tweets") {
       var dateRange = dygraph.xAxisRange(),
       minDate = dateRange[0],
       maxDate = dateRange[1];
-      window.prices.updateOptions({dateWindow: [minDate, maxDate]});
+      globalVars.prices.updateOptions({dateWindow: [minDate, maxDate]});
     }
 }
 
 
 function priceDraw(dygraph, is_initial) {
   if (!is_initial) 
-    if (window.clicked === "prices") {
+    if (globalVars.clicked === "prices") {
       var dateRange = dygraph.xAxisRange(),
       minDate = dateRange[0],
       maxDate = dateRange[1];
-      window.tweets.updateOptions({dateWindow: [minDate, maxDate]});
+      globalVars.tweets.updateOptions({dateWindow: [minDate, maxDate]});
     }
 }
 
@@ -94,7 +98,7 @@ function getAndGraphData() { //accepts series of {key: <str>, tag: <elem>} objec
 }
 
 function graphData(key, tag, csv, opt) {
-  window[key] = new Dygraph(tag, csv, opt);
+  globalVars[key] = new Dygraph(tag, csv, opt);
 }
 
 
