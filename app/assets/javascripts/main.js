@@ -12,19 +12,14 @@ $(document).ready(function () {
     setMenu();
     setCompany();
     
-    //initialize callbacks
+  
     createClickCallback("#tweetChart", "tweets")();
     createClickCallback("#priceChart", "prices")();
-    var tweetHighlightCallback = createHighlightCallback("prices");
-    var priceHighlightCallback = createHighlightCallback("tweets");
-    var tweetDrawCallback = createDrawCallback("tweets", "prices");
-    var priceDrawCallback = createDrawCallback("prices", "tweets");
 
-
-    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlightCallback, 
-                                                                    drawCallback: tweetDrawCallback}},
-                    {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlightCallback,
-                                                                    drawCallback: priceDrawCallback}});
+    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: createHighlightCallback("prices"), 
+                                                                    drawCallback: createDrawCallback("tweets", "prices")}},
+                    {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: createHighlightCallback("tweets"),
+                                                                    drawCallback: createDrawCallback("prices", "tweets")}});
   
   }
 });
