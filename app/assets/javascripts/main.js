@@ -8,6 +8,8 @@ $(document).ready(function () {
   if ($("#tweetChart").length) {
     setMenu();
     setCompany();
+    clickListener("#tweetChart", "tweets")();
+    clickListener("#priceChart", "prices")();
 
     getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlight, 
                                                                     drawCallback: tweetDraw}},
@@ -17,8 +19,8 @@ $(document).ready(function () {
     window.globalVars = {};
     globalVars.clicked = null;
 
-    tweetClickListener();
-    priceClickListener();
+    // tweetClickListener();
+    // priceClickListener();
   }
 
 
@@ -27,17 +29,26 @@ $(document).ready(function () {
 
 //begin callbacks
 
-function tweetClickListener() {
-  $("#tweetChart").mousedown(function () {
-    globalVars.clicked = "tweets";
-  });
+function clickListener(tag, statusName) {
+  return function () {
+    $(tag).mousedown(function () {
+      globalVars.clicked = statusName;
+    });
+  };
+
 }
 
-function priceClickListener() {
-  $("#priceChart").mousedown(function () {
-    globalVars.clicked = "prices";
-  });
-}
+// function tweetClickListener() {
+//   $("#tweetChart").mousedown(function () {
+//     globalVars.clicked = "tweets";
+//   });
+// }
+
+// function priceClickListener() {
+//   $("#priceChart").mousedown(function () {
+//     globalVars.clicked = "prices";
+//   });
+// }
 
 
 function tweetHighlight(event, x, points, row, seriesName) {
