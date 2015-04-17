@@ -16,9 +16,9 @@ $(document).ready(function () {
     createClickCallback("#tweetChart", "tweets")();
     createClickCallback("#priceChart", "prices")();
 
-    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: createHighlightCallback("prices"), 
+    getAndGraphData({series: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: createHighlightCallback("prices"), 
                                                                     drawCallback: createDrawCallback("tweets", "prices")}},
-                    {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: createHighlightCallback("tweets"),
+                    {series: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: createHighlightCallback("tweets"),
                                                                     drawCallback: createDrawCallback("prices", "tweets")}});
   
   }
@@ -65,7 +65,7 @@ function setCompany() {
   });
 }
 
-function getAndGraphData() { //accepts series of {key: <str>, tag: <elem>} objects
+function getAndGraphData() { //accepts set of {series: <str>, tag: <elem>} objects
   var args = arguments,
     argLen = arguments.length;
 
@@ -73,12 +73,12 @@ function getAndGraphData() { //accepts series of {key: <str>, tag: <elem>} objec
     url: window.location.href}).done(function (response) {
 
     for (var i = 0; i < argLen; i++)
-      graphData(args[i].key, args[i].tag, response[args[i].key], args[i].opt);
+      graphData(args[i].series, args[i].tag, response[args[i].series], args[i].opt);
   });
 }
 
-function graphData(key, tag, csv, opt) {
-  globalVars[key] = new Dygraph(tag, csv, opt);
+function graphData(series, tag, csv, opt) {
+  globalVars[series] = new Dygraph(tag, csv, opt);
 }
 
 
