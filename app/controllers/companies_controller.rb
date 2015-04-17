@@ -14,7 +14,7 @@ class CompaniesController < ApplicationController
 
   def get_record
     record = {tweets: DailyTotal.csv_header, prices: SharePrice.csv_header}
-    days = Day.includes(:daily_totals, :share_prices)
+    days = Day.includes(:daily_totals, :share_prices).where("date < '#{Date.today}'")
     days.each do |this_day|
       record[:tweets] += this_day.daily_totals.find_by(company: params[:id]).try(:csv_row).to_s
       record[:prices] += this_day.share_prices.find_by(company: params[:id]).try(:csv_row).to_s
