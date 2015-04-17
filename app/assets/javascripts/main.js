@@ -6,28 +6,27 @@
 $(document).ready(function () {
 
   if ($("#tweetChart").length) {
+    window.globalVars = {};
+    globalVars.clicked = null;
+
     setMenu();
     setCompany();
     
+    //initialize callbacks
     clickListener("#tweetChart", "tweets")();
     clickListener("#priceChart", "prices")();
     var tweetHighlight = highlight("prices");
     var priceHighlight = highlight("tweets");
+    var tweetDraw = draw("tweets", "prices");
+    var priceDraw = draw("prices", "tweets");
 
 
     getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlight, 
                                                                     drawCallback: tweetDraw}},
                     {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlight,
                                                                     drawCallback: priceDraw}});
-
-    window.globalVars = {};
-    globalVars.clicked = null;
-
   
   }
-
-
-
 });
 
 //begin callbacks
@@ -47,26 +46,16 @@ function highlight(otherGraph) {
   };
 }
 
-
-function tweetDraw(dygraph, is_initial) {
-  if (!is_initial)
-    if (globalVars.clicked === "tweets") {
-      var dateRange = dygraph.xAxisRange(),
-      minDate = dateRange[0],
-      maxDate = dateRange[1];
-      globalVars.prices.updateOptions({dateWindow: [minDate, maxDate]});
-    }
-}
-
-
-function priceDraw(dygraph, is_initial) {
-  if (!is_initial) 
-    if (globalVars.clicked === "prices") {
-      var dateRange = dygraph.xAxisRange(),
-      minDate = dateRange[0],
-      maxDate = dateRange[1];
-      globalVars.tweets.updateOptions({dateWindow: [minDate, maxDate]});
-    }
+function draw(thisGraph, otherGraph) {
+  return function (dygraph, is_initial) {
+    if (!is_initial)
+      if (globalVars.clicked === thisGraph) {
+        var dateRange = dygraph.xAxisRange(),
+        minDate = dateRange[0],
+        maxDate = dateRange[1];
+        globalVars[otherGraph].updateOptions({dateWindow: [minDate, maxDate]});
+      }
+  };
 }
 
 //end callbacks
