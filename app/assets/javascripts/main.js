@@ -9,14 +9,32 @@ $(document).ready(function () {
     setCompany();
     
     getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlight, 
-                                                                    zoomCallback: tweetZoom}}, 
-                     {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlight,
-                                                                    zoomCallback: priceZoom}});
+                                                                    drawCallback: tweetDraw}}, 
+                    {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlight,
+                                                                    drawCallback: priceDraw}});
+    window.clicked = null;
+    tweetClickListener();
+    priceClickListener();
   }
+
+  
 
 });
 
 //begin callbacks
+
+function tweetClickListener() {
+  $("#tweetChart").mousedown(function(){
+    window.clicked = "tweets";
+  });
+}
+
+function priceClickListener() {
+  $("#priceChart").mousedown(function(){
+    window.clicked = "prices";
+  });
+}
+
 
 function tweetHighlight(event, x, points, row, seriesName) {
   window.prices.setSelection(row);
@@ -26,12 +44,25 @@ function priceHighlight(event, x, points, row, seriesName) {
   window.tweets.setSelection(row);
 }
 
-function tweetZoom(minDate, maxDate, yRanges) {
-  window.prices.updateOptions({dateWindow: [minDate, maxDate]});
+function tweetDraw(dygraph, is_initial) {
+  if (!is_initial) 
+    if (window.clicked === "tweets") {
+      var dateRange = dygraph.xAxisRange(),
+      minDate = dateRange[0],
+      maxDate = dateRange[1];
+      window.prices.updateOptions({dateWindow: [minDate, maxDate]});
+    }
 }
 
-function priceZoom(minDate, maxDate, yRanges) {
-  window.tweets.updateOptions({dateWindow: [minDate, maxDate]});
+
+function priceDraw(dygraph, is_initial) {
+  if (!is_initial) 
+    if (window.clicked === "prices") {
+      var dateRange = dygraph.xAxisRange(),
+      minDate = dateRange[0],
+      maxDate = dateRange[1];
+      window.tweets.updateOptions({dateWindow: [minDate, maxDate]});
+    }
 }
 
 //end callbacks
