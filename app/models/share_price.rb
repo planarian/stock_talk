@@ -11,7 +11,7 @@ class SharePrice < ActiveRecord::Base
   end
 
   def price_str
-    sprintf("%.2f", price)
+    price ? sprintf("%.2f", price) : ""
   end
 
   def self.csv_header
