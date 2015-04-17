@@ -13,25 +13,24 @@ $(document).ready(function () {
     setCompany();
     
     //initialize callbacks
-    clickListener("#tweetChart", "tweets")();
-    clickListener("#priceChart", "prices")();
-    var tweetHighlight = highlight("prices");
-    var priceHighlight = highlight("tweets");
-    var tweetDraw = draw("tweets", "prices");
-    var priceDraw = draw("prices", "tweets");
+    createClickCallback("#tweetChart", "tweets")();
+    createClickCallback("#priceChart", "prices")();
+    var tweetHighlightCallback = createHighlightCallback("prices");
+    var priceHighlightCallback = createHighlightCallback("tweets");
+    var tweetDrawCallback = createDrawCallback("tweets", "prices");
+    var priceDrawCallback = createDrawCallback("prices", "tweets");
 
 
-    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlight, 
-                                                                    drawCallback: tweetDraw}},
-                    {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlight,
-                                                                    drawCallback: priceDraw}});
+    getAndGraphData({key: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: tweetHighlightCallback, 
+                                                                    drawCallback: tweetDrawCallback}},
+                    {key: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: priceHighlightCallback,
+                                                                    drawCallback: priceDrawCallback}});
   
   }
 });
 
-//begin callbacks
 
-function clickListener(tag, statusName) {
+function createClickCallback(tag, statusName) {
   return function () {
     $(tag).mousedown(function () {
       globalVars.clicked = statusName;
@@ -40,13 +39,13 @@ function clickListener(tag, statusName) {
 
 }
 
-function highlight(otherGraph) {
+function createHighlightCallback(otherGraph) {
   return function (event, x, points, row, seriesName) {
     globalVars[otherGraph].setSelection(row);
   };
 }
 
-function draw(thisGraph, otherGraph) {
+function createDrawCallback(thisGraph, otherGraph) {
   return function (dygraph, is_initial) {
     if (!is_initial)
       if (globalVars.clicked === thisGraph) {
@@ -57,9 +56,6 @@ function draw(thisGraph, otherGraph) {
       }
   };
 }
-
-//end callbacks
-
 
 
 function setMenu() {
