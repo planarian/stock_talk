@@ -13,6 +13,7 @@
 //  require_tree .(COMMENTED OUT)
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 
 //= require dygraph-combined
 //= require main
