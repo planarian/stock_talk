@@ -54,7 +54,7 @@ function shortDate(ms) {
   var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     d = new Date(ms);
-  return days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate();
+  return days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + (d.getDate() < 10 ? 0 : "") + d.getDate();
 }
 
 function createMouseLeaveCallback(tag, otherGraph) {
