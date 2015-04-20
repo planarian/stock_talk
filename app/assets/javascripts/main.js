@@ -20,9 +20,11 @@ $(document).ready(function () {
 
 
     getAndGraphData({series: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: createHighlightCallback("prices"), 
-                                                                    drawCallback: createDrawCallback("tweets", "prices")}},
+                                                                       drawCallback: createDrawCallback("tweets", "prices"), 
+                                                                       color: '#5cb85c', axisLabelColor: '#df691a'}},
                     {series: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: createHighlightCallback("tweets"),
-                                                                    drawCallback: createDrawCallback("prices", "tweets")}});
+                                                                       drawCallback: createDrawCallback("prices", "tweets"), 
+                                                                       color: '#5bc0de', axisLabelColor: '#df691a'}});
   
   }
 });
