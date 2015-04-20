@@ -20,6 +20,9 @@
 @import "bootswatch/superhero/bootswatch"
 
 
+body
+  padding-right: 50px
+
 #tweetContainer, #priceContainer
   position: relative
   height: 300px
@@ -34,7 +37,6 @@
   top: 0px
   bottom: 0px
 
-
 .dygraph-legend 
   background-color: #4e5d6c !important
   padding: 4px
@@ -44,3 +46,14 @@
   height: 300px
   display: flex
   align-items: center
+
+@media (max-width: 768px)
+  #finePrint
+    height: 100%
+    padding-top: 30px
+    padding-bottom: 20px
+  #directions
+    height: 100%
+    padding-bottom: 20px
+
+
