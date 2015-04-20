@@ -15,6 +15,9 @@ $(document).ready(function () {
   
     createClickCallback("#tweetChart", "tweets")();
     createClickCallback("#priceChart", "prices")();
+    createMouseLeaveCallback("#tweetChart", "prices")();
+    createMouseLeaveCallback("#priceChart", "tweets")();
+
 
     getAndGraphData({series: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: createHighlightCallback("prices"), 
                                                                     drawCallback: createDrawCallback("tweets", "prices")}},
@@ -24,6 +27,14 @@ $(document).ready(function () {
   }
 });
 
+
+function createMouseLeaveCallback(tag, otherGraph) {
+  return function () {
+    $(tag).mouseleave(function () {
+      globalVars[otherGraph].clearSelection();
+    });
+  };
+}
 
 function createClickCallback(tag, statusName) {
   return function () {
