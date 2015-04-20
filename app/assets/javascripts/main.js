@@ -27,9 +27,9 @@ $(document).ready(function () {
                                                                         x: {
                                                                           valueFormatter: function (ms) {
                                                                             return shortDate(ms);
-                                                                          }
-                                                                        }
-                                                                       }}},
+                                                                          }}},
+                                                                       labelsSeparateLines: true,
+                                                                       labelsDivWidth: 115}},
                     {series: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: createHighlightCallback("tweets"),
                                                                        drawCallback: createDrawCallback("prices", "tweets"), 
                                                                        color: '#5bc0de', 
@@ -38,14 +38,13 @@ $(document).ready(function () {
                                                                         x: {
                                                                           valueFormatter: function (ms) {
                                                                             return shortDate(ms);
-                                                                          }
-                                                                        },
+                                                                          }},
                                                                         y: {
                                                                           valueFormatter: function (price) {
                                                                             return '$' + price.toFixed(2);
-                                                                            }
-                                                                          }
-                                                                       }}});
+                                                                            }}},
+                                                                       labelsSeparateLines: true,
+                                                                       labelsDivWidth: 110}});
   
   }
 });
