@@ -39,7 +39,12 @@ $(document).ready(function () {
                                                                           valueFormatter: function (ms) {
                                                                             return shortDate(ms);
                                                                           }
-                                                                        }
+                                                                        },
+                                                                        y: {
+                                                                          valueFormatter: function (price) {
+                                                                            return '$' + price.toFixed(2);
+                                                                            }
+                                                                          }
                                                                        }}});
   
   }
