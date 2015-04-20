@@ -21,14 +21,37 @@ $(document).ready(function () {
 
     getAndGraphData({series: 'tweets', tag: $('#tweetChart')[0], opt: {highlightCallback: createHighlightCallback("prices"), 
                                                                        drawCallback: createDrawCallback("tweets", "prices"), 
-                                                                       color: '#5cb85c', axisLabelColor: '#df691a'}},
+                                                                       color: '#5cb85c',
+                                                                       axisLabelColor: '#df691a',
+                                                                       axes: {
+                                                                        x: {
+                                                                          valueFormatter: function (ms) {
+                                                                            return shortDate(ms);
+                                                                          }
+                                                                        }
+                                                                       }}},
                     {series: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: createHighlightCallback("tweets"),
                                                                        drawCallback: createDrawCallback("prices", "tweets"), 
-                                                                       color: '#5bc0de', axisLabelColor: '#df691a'}});
+                                                                       color: '#5bc0de', 
+                                                                       axisLabelColor: '#df691a',
+                                                                       axes: {
+                                                                        x: {
+                                                                          valueFormatter: function (ms) {
+                                                                            return shortDate(ms);
+                                                                          }
+                                                                        }
+                                                                       }}});
   
   }
 });
 
+
+function shortDate(ms) {
+  var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    d = new Date(ms);
+  return days[d.getDay()] + ', ' + months[d.getMonth()] + d.getDate();
+}
 
 function createMouseLeaveCallback(tag, otherGraph) {
   return function () {
