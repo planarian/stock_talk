@@ -28,6 +28,7 @@ $(document).ready(function () {
                                                                           valueFormatter: function (ms) {
                                                                             return shortDate(ms);
                                                                           }}},
+                                                                       title: "Tweets",
                                                                        labelsSeparateLines: true,
                                                                        labelsDivWidth: 115}},
                     {series: 'prices', tag: $('#priceChart')[0], opt: {highlightCallback: createHighlightCallback("tweets"),
@@ -43,6 +44,7 @@ $(document).ready(function () {
                                                                           valueFormatter: function (price) {
                                                                             return '$' + price.toFixed(2);
                                                                             }}},
+                                                                       title: "Share Price",
                                                                        labelsSeparateLines: true,
                                                                        labelsDivWidth: 110}});
   
