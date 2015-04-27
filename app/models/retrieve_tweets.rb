@@ -2,7 +2,13 @@ module RetrieveTweets
   MAX_COUNT = 100
   
   def self.get_all
-    Company.all.each { |co| get(co) }
+    Company.all.each do |co| 
+      trap('TERM') do
+        puts "GRACEFUL SHUTDOWN"
+        exit
+      end
+      get(co)
+    end
   end
 
   def self.get(company)
